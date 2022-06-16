@@ -52,6 +52,9 @@ module.exports = {
         'arrow-parens': [0],
         'no-console': 'off',
         indent: ['error', 4],
-        'no-underscore-dangle': 'off'
+        'no-underscore-dangle': 'off',
+        'max-len': ['error', { code: 120, tabWidth: 4 }],
+        'import/extensions': ['off'],
+        'import/no-unresolved': 'off'
     }
 };
