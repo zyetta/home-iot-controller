@@ -28,7 +28,8 @@ module.exports = {
         'sort-imports': [
             'error',
             {
-                ignoreDeclarationSort: true
+                ignoreDeclarationSort: true,
+                ignoreCase: true
             }
         ],
 
@@ -51,10 +52,13 @@ module.exports = {
         '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
         'arrow-parens': [0],
         'no-console': 'off',
-        indent: ['error', 4],
+        indent: ['error', 4, { SwitchCase: 1 }],
         'no-underscore-dangle': 'off',
         'max-len': ['error', { code: 120, tabWidth: 4 }],
         'import/extensions': ['off'],
-        'import/no-unresolved': 'off'
+        'import/no-unresolved': 'off',
+        'import/prefer-default-export': 'off',
+        'no-shadow': 'off',
+        '@typescript-eslint/no-shadow': 'error'
     }
 };
