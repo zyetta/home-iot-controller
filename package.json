@@ -7,12 +7,14 @@
         "@types/node": "^18.0.0",
         "dotenv": "^16.0.1",
         "esbuild": "^0.14.44",
+        "mqtt": "^4.3.7",
         "rimraf": "^3.0.2"
     },
     "devDependencies": {
         "@typescript-eslint/eslint-plugin": "^5.28.0",
         "@typescript-eslint/parser": "^5.28.0",
         "concurrently": "^7.2.2",
+        "cross-env": "^7.0.3",
         "eslint": "^8.17.0",
         "eslint-config-airbnb": "^19.0.4",
         "eslint-plugin-airbnb": "0.0.1-security",
