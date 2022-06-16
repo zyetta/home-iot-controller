@@ -11,7 +11,7 @@ export const SwitchSchema: Schema = new Schema(
     { timestamps: true, collection: 'switch' }
 );
 
-export type Switch = { value: number; deviceId: string };
+export type Switch = { value: 0 | 1; deviceId: string };
 export type ISwitch = Switch & Document;
 
 /** Define CRUD Interfaces */

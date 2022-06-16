@@ -2,6 +2,8 @@ import { getHumidityModel, Humidity } from '../models/humidityModel';
 import { getSwitchModel, Switch } from '../models/switchModel';
 import { getTemperatureModel, Temperature } from '../models/temperatureModel';
 
+import { EweLinkHandler } from '../handlers/eweLinkHandler';
+import { eWeLinkLogin } from '../types/eweLinkTypes';
 import { LogsHandler } from '../handlers/logsHandler';
 import { LogTypeEnum } from '../types/enums/logsEnums';
 
@@ -39,9 +41,12 @@ export class MetricsController {
     static async toggleSwitch(data: Switch) {
         const SwitchModel = await getSwitchModel();
         try {
-            /**
-             *  // To Do: Ewelink integration
-             */
+            const switchData: eWeLinkLogin = {
+                email: process.env.EWELINK_EMAIL as string,
+                password: process.env.EWELINK_PASSWORD as string,
+                ...data
+            };
+            EweLinkHandler.setState(switchData);
             await SwitchModel.create(data);
         } catch (error) {
             LogsHandler.log({ topic: LogTypeEnum.VALIDATION_ERROR, message: error });

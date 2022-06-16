@@ -10,9 +10,11 @@ export class LogsHandler {
      */
     private static validationOptions: ValidationOptions = { abortEarly: false, errors: { wrap: { label: "'" } } };
 
-    static log(errors: Logs) {
-        const { value, error } = LogsInputSchema.validate(errors, this.validationOptions);
+    static log(data: Logs) {
+        const logs = { topic: data.topic, message: data.message.toString() };
+        const { value, error } = LogsInputSchema.validate(logs, this.validationOptions);
         if (error) throw error;
         LogsController.storeLogs(value);
+        console.log(value);
     }
 }
