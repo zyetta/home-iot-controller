@@ -6,7 +6,8 @@ import { getConnectionToDatabase } from '../config/mongo';
 export const TemperatureSchema: Schema = new Schema(
     {
         deviceId: { type: String, required: true },
-        value: { type: Number, required: true }
+        value: { type: Number, required: true },
+        exported: { type: Boolean, required: true, default: false }
     },
     { timestamps: true, collection: 'temperature' }
 );
