@@ -1,10 +1,17 @@
 import * as mqtt from 'mqtt';
 
-import { MQTT_TOPICS } from '../constants';
+import { MQTT_TOPICS } from '../utils/constants';
+import MqttHandler from '../handlers/mqttHandler';
 
 export default class MqttController {
+    /**
+     * Client  of mqtt controller
+     */
     private client;
 
+    /**
+     * Client options of mqtt controller
+     */
     private clientOptions;
 
     /**
@@ -16,6 +23,9 @@ export default class MqttController {
         console.log(`Connected to Broker:\tmqtt://${process.env.MQTT_HOST}:${process.env.MQTT_PORT}`);
     }
 
+    /**
+     * Topic Listener
+     */
     public async listen() {
         this.client.on('connect', () => {
             MQTT_TOPICS.map((topic: string) => {
@@ -25,15 +35,16 @@ export default class MqttController {
                 });
                 return topic;
             });
-            this.messageHandler();
+            this.handlerSetter();
         });
     }
 
-    private messageHandler() {
-        this.client.on('message', (topic, message) => {
-            console.log(topic.toString());
-            console.log(message.toString());
-        });
+    /**
+     * Sets callback function for messages
+     */
+    private handlerSetter() {
+        const handler = new MqttHandler();
+        this.client.on('message', (topic, message) => handler.messageReceived(topic, message));
     }
 
     /**
