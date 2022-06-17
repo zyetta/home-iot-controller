@@ -1,6 +1,7 @@
 // eslint-disable-next-line import/order
 import { SPREADSHEET_RANGES, SPREADSHEET_SCOPES, TOKEN_PATH } from '../utils/constants';
 
+import { ConsoleColorsEnum } from '../types/enums/generalEnums';
 // eslint-disable-next-line import/order
 import fs from 'fs';
 import { getHumidityModel } from '../models/humidityModel';
@@ -30,7 +31,7 @@ export class GsheetController {
      * Constructor for gsheet controller
      */
     constructor() {
-        console.log('Uploading to Google Sheet 🚀');
+        console.log(ConsoleColorsEnum.BG_CYAN, 'Uploading to Google Sheet 🚀');
         this.setCredentials();
         this.authenticate(this.getCredentials());
     }
@@ -54,7 +55,7 @@ export class GsheetController {
      */
     private generateToken(): void {
         const authUrl = this.authClient.generateAuthUrl({ access_type: 'offline', scope: SPREADSHEET_SCOPES });
-        console.log('Auth Url:', authUrl);
+        console.log(ConsoleColorsEnum.BG_GREEN, 'Auth Url:', authUrl);
         const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
         rl.question('Enter the code from that page here: ', code => {
             rl.close();
@@ -63,7 +64,7 @@ export class GsheetController {
                 this.authClient.setCredentials(token);
                 fs.writeFile(TOKEN_PATH, JSON.stringify(token), error => {
                     if (error) return console.error(error);
-                    console.log('Token stored to', TOKEN_PATH);
+                    console.log(ConsoleColorsEnum.FG_MAGENTA, 'Token stored to', TOKEN_PATH);
                     this.authenticate(this.getCredentials());
                     return null;
                 });

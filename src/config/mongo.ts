@@ -12,7 +12,7 @@ const connOptions = {
 async function getConnection(): Promise<mongoose.Connection | null> {
     console.log('Connecting to Mongo Client ...');
     connURI = process.env.CLUSTER_URI as string;
-    if (!conn) conn = await mongoose.createConnection(connURI, connOptions);
+    if (!conn) conn = mongoose.createConnection(connURI, connOptions);
     return conn;
 }
 

@@ -1,3 +1,5 @@
+import { anyToString } from '../utils/utils';
+import { ConsoleColorsEnum } from '../types/enums/generalEnums';
 import { Logs } from '../models/logsModel';
 import { LogsController } from '../controllers/logsController';
 import { LogsInputSchema } from '../validation/logsValidation';
@@ -11,10 +13,10 @@ export class LogsHandler {
     private static validationOptions: ValidationOptions = { abortEarly: false, errors: { wrap: { label: "'" } } };
 
     static log(data: Logs) {
-        const logs = { topic: data.topic, message: data.message.toString() };
+        const logs = { topic: data.topic, message: anyToString(data.message) };
         const { value, error } = LogsInputSchema.validate(logs, this.validationOptions);
         if (error) throw error;
         LogsController.storeLogs(value);
-        console.log(value);
+        console.log(ConsoleColorsEnum.FG_RED, value);
     }
 }
