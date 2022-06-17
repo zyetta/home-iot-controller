@@ -2,6 +2,7 @@
 import { SPREADSHEET_RANGES, SPREADSHEET_SCOPES, TOKEN_PATH } from '../utils/constants';
 
 import { ConsoleColorsEnum } from '../types/enums/generalEnums';
+import { DiscordHandler } from '../handlers/discordHandler';
 // eslint-disable-next-line import/order
 import fs from 'fs';
 import { getHumidityModel } from '../models/humidityModel';
@@ -134,7 +135,10 @@ export class GsheetController {
                     valueInputOption
                 });
             }
-
+            DiscordHandler.postWebhook({
+                url: process.env.DISCORD_WEBHOOK as string,
+                payload: 'Uploaded to Google Sheet 🚀'
+            });
             uploadConfig.forEach(x => sheets.spreadsheets.values.append(x));
         } catch (error) {
             LogsHandler.log({ topic: LogTypeEnum.RUN_TIME_ERROR, message: error });

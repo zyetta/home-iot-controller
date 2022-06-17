@@ -1,26 +1,26 @@
-import { EweLinkController } from '../controllers/eweLinkController';
-import { eWeLinkLogin } from '../types/eweLinkTypes';
-import { eweLinkLoginInputSchema } from '../validation/eweLinkValidation';
+import { DiscordController } from '../controllers/discordController';
+import { DiscordWebhook } from '../types/discordTypes';
 import { LogsHandler } from './logsHandler';
 import { LogTypeEnum } from '../types/enums/logsEnums';
 // eslint-disable-next-line import/order
 import { ValidationOptions } from 'joi';
+import { webhookPostInputSchema } from '../validation/discordValidation';
 
-export class EweLinkHandler {
+export class DiscordHandler {
     /**
      * Validation options of mqtt handler
      */
     private static validationOptions: ValidationOptions = { abortEarly: false, errors: { wrap: { label: "'" } } };
 
     /**
-     *  Sets the state of the applicable eweLink device
-     * @param {eWeLinkLogin} data
+     *  Posts webhook to Discord Channel
+     * @param {DiscordWebhook} data
      */
-    public static setState(data: eWeLinkLogin) {
+    public static postWebhook(data: DiscordWebhook) {
         try {
-            const { value, error } = eweLinkLoginInputSchema.validate(data, this.validationOptions);
+            const { value, error } = webhookPostInputSchema.validate(data, this.validationOptions);
             if (error) throw error;
-            EweLinkController.setState(value);
+            DiscordController.postWebhook(value);
         } catch (error) {
             LogsHandler.log({ topic: LogTypeEnum.VALIDATION_ERROR, message: error });
         }
