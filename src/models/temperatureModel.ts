@@ -13,7 +13,7 @@ export const TemperatureSchema: Schema = new Schema(
 );
 
 export type Temperature = { value: number; deviceId: string };
-export type ITemperature = Temperature & Document;
+export type ITemperature = Temperature & Document & { createdAt?: Date; updatedAt?: Date };
 
 /** Define CRUD Interfaces */
 let Model: MongooseModel<ITemperature>;

@@ -13,7 +13,7 @@ export const HumiditySchema: Schema = new Schema(
 );
 
 export type Humidity = { value: number; deviceId: string };
-export type IHumidity = Humidity & Document;
+export type IHumidity = Humidity & Document & { createdAt?: Date; updatedAt?: Date };
 
 /** Define CRUD Interfaces */
 let Model: MongooseModel<IHumidity>;

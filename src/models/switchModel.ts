@@ -13,7 +13,7 @@ export const SwitchSchema: Schema = new Schema(
 );
 
 export type Switch = { value: 0 | 1; deviceId: string };
-export type ISwitch = Switch & Document;
+export type ISwitch = Switch & Document & { createdAt?: Date; updatedAt?: Date };
 
 /** Define CRUD Interfaces */
 let Model: MongooseModel<ISwitch>;

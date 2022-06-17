@@ -16,7 +16,10 @@ const envFileInputSchema = Joi.object({
     eweLinkPassword: Joi.string().required(),
 
     // Discord Credentials
-    discordClientId: Joi.string().required()
+    discordClientId: Joi.string().required(),
+
+    // Google Credentials
+    googleToken: Joi.string().required()
 });
 
 export const validateEnv = () => {
@@ -28,7 +31,8 @@ export const validateEnv = () => {
         mongoClusterUri: process.env.CLUSTER_URI,
         eweLinkEmail: process.env.EWELINK_EMAIL,
         eweLinkPassword: process.env.EWELINK_PASSWORD,
-        discordClientId: process.env.DISCORD_CLIENT_ID
+        discordClientId: process.env.DISCORD_CLIENT_ID,
+        googleToken: process.env.GOOGLE_TOKEN
     };
     const { value: _value, error } = envFileInputSchema.validate(data, validationOptions);
     if (error) return error;

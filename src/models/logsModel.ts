@@ -13,7 +13,7 @@ export const LogsSchema: Schema = new Schema(
 );
 
 export type Logs = { topic: LogTypeEnum; message: string };
-export type ILogs = Logs & Document;
+export type ILogs = Logs & Document & { createdAt?: Date; updatedAt?: Date };
 
 /** Define CRUD Interfaces */
 let Model: MongooseModel<ILogs>;
