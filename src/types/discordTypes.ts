@@ -77,11 +77,11 @@ export const LightOff: DiscordCommand = {
     description: 'Turns off light 🌞',
     type: 'CHAT_INPUT',
     run: async (client: Client, interaction: BaseCommandInteraction) => {
-        const content = 'Turned Lamp Off 🌚';
+        const content = 'Turned Light Off 🌚';
         const switchData: eWeLinkLogin = {
             email: process.env.EWELINK_EMAIL as string,
             password: process.env.EWELINK_PASSWORD as string,
-            deviceId: process.env.LAMP_ID as string,
+            deviceId: process.env.LIGHT_ID as string,
             value: 0
         };
         EweLinkHandler.setState(switchData);
@@ -100,11 +100,11 @@ export const LightOn: DiscordCommand = {
     description: 'Turns on Light🌞',
     type: 'CHAT_INPUT',
     run: async (client: Client, interaction: BaseCommandInteraction) => {
-        const content = 'Turned Lamp Off 🌞';
+        const content = 'Turned Light Off 🌞';
         const switchData: eWeLinkLogin = {
             email: process.env.EWELINK_EMAIL as string,
             password: process.env.EWELINK_PASSWORD as string,
-            deviceId: process.env.LAMP_ID as string,
+            deviceId: process.env.LIGHT_ID as string,
             value: 1
         };
         EweLinkHandler.setState(switchData);
