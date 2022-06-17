@@ -16,11 +16,21 @@ import readline from 'readline';
 // eslint-disable-next-line import/order
 
 export class GsheetController {
+    /**
+     * Credentials  of gsheet controller
+     */
     private credentials;
 
+    /**
+     * Auth client of gsheet controller
+     */
     private authClient;
 
+    /**
+     * Constructor for gsheet controller
+     */
     constructor() {
+        console.log('Uploading to Google Sheet 🚀');
         this.setCredentials();
         this.authenticate(this.getCredentials());
     }
@@ -82,6 +92,9 @@ export class GsheetController {
         };
     }
 
+    /**
+     * Uploads data to Google sheet
+     */
     private async uploadData(): Promise<void> {
         try {
             const filter = { exported: { $in: [false, undefined] } };

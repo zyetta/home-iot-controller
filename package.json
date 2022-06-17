@@ -12,6 +12,7 @@
         "joi": "^17.6.0",
         "mongoose": "^6.3.8",
         "mqtt": "^4.3.7",
+        "node-cron": "^3.0.1",
         "rimraf": "^3.0.2"
     },
     "devDependencies": {
