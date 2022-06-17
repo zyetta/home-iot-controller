@@ -16,10 +16,11 @@ const envFileInputSchema = Joi.object({
     // eweLink Credentials
     eweLinkEmail: Joi.string().required().email(),
     eweLinkPassword: Joi.string().required(),
-
+    lampId: Joi.string().required(),
+    lightId: Joi.string().required(),
     // Discord Credentials
     discordClientId: Joi.string().required(),
-
+    discordWebhook: Joi.string().required(),
     // Google Credentials
     googleToken: Joi.string().required()
 });
@@ -34,7 +35,10 @@ export const validateEnv = () => {
         eweLinkEmail: process.env.EWELINK_EMAIL,
         eweLinkPassword: process.env.EWELINK_PASSWORD,
         discordClientId: process.env.DISCORD_CLIENT_ID,
-        googleToken: process.env.GOOGLE_TOKEN
+        googleToken: process.env.GOOGLE_TOKEN,
+        lampId: process.env.LAMP_ID,
+        lightId: process.env.LIGHT_ID,
+        discordWebhook: process.env.DISCORD_WEBHOOK
     };
     const { value: _value, error } = envFileInputSchema.validate(data, validationOptions);
     if (error) return error;
