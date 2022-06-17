@@ -6,13 +6,14 @@ import { getConnectionToDatabase } from '../config/mongo';
 export const SwitchSchema: Schema = new Schema(
     {
         deviceId: { type: String, required: true },
-        value: { type: Number, required: true }
+        value: { type: Number, required: true },
+        exported: { type: Boolean, required: true, default: false }
     },
     { timestamps: true, collection: 'switch' }
 );
 
 export type Switch = { value: 0 | 1; deviceId: string };
-export type ISwitch = Switch & Document;
+export type ISwitch = Switch & Document & { createdAt?: Date; updatedAt?: Date };
 
 /** Define CRUD Interfaces */
 let Model: MongooseModel<ISwitch>;

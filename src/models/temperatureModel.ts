@@ -6,13 +6,14 @@ import { getConnectionToDatabase } from '../config/mongo';
 export const TemperatureSchema: Schema = new Schema(
     {
         deviceId: { type: String, required: true },
-        value: { type: Number, required: true }
+        value: { type: Number, required: true },
+        exported: { type: Boolean, required: true, default: false }
     },
     { timestamps: true, collection: 'temperature' }
 );
 
 export type Temperature = { value: number; deviceId: string };
-export type ITemperature = Temperature & Document;
+export type ITemperature = Temperature & Document & { createdAt?: Date; updatedAt?: Date };
 
 /** Define CRUD Interfaces */
 let Model: MongooseModel<ITemperature>;
