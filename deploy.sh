@@ -1,3 +1,6 @@
+git fetch
+git stash
+git pull --ff
 docker build -t home-iot-controller .
 docker stop homeIotController
 docker rm homeIotController
