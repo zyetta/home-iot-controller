@@ -115,4 +115,50 @@ export const LightOn: DiscordCommand = {
     }
 };
 
-export const DiscordCommands: DiscordCommand[] = [Hello, LampOff, LampOn, LightOff, LightOn];
+/**
+ * Turn on Lights
+ */
+export const AllLightsOn: DiscordCommand = {
+    name: 'all-on',
+    description: 'Turns on All Lights ✨',
+    type: 'CHAT_INPUT',
+    run: async (client: Client, interaction: BaseCommandInteraction) => {
+        const content = 'Turned on All Lights ✨';
+        const switchData: eWeLinkLogin = {
+            email: process.env.EWELINK_EMAIL as string,
+            password: process.env.EWELINK_PASSWORD as string,
+            deviceId: process.env.LIGHT_ID as string,
+            value: 1
+        };
+        EweLinkHandler.setState(switchData);
+        await interaction.followUp({
+            ephemeral: true,
+            content
+        });
+    }
+};
+
+/**
+ * Turn off Lights
+ */
+export const AllLightsOff: DiscordCommand = {
+    name: 'all-on',
+    description: 'Turns off All Lights 🌟',
+    type: 'CHAT_INPUT',
+    run: async (client: Client, interaction: BaseCommandInteraction) => {
+        const content = 'Turned off All Lights 🌟';
+        const switchData: eWeLinkLogin = {
+            email: process.env.EWELINK_EMAIL as string,
+            password: process.env.EWELINK_PASSWORD as string,
+            deviceId: process.env.LIGHT_ID as string,
+            value: 0
+        };
+        EweLinkHandler.setState(switchData);
+        await interaction.followUp({
+            ephemeral: true,
+            content
+        });
+    }
+};
+
+export const DiscordCommands: DiscordCommand[] = [Hello, LampOff, LampOn, LightOff, LightOn, AllLightsOff, AllLightsOn];
