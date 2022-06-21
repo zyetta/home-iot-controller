@@ -142,7 +142,7 @@ export const AllLightsOn: DiscordCommand = {
  * Turn off Lights
  */
 export const AllLightsOff: DiscordCommand = {
-    name: 'all-on',
+    name: 'all-off',
     description: 'Turns off All Lights 🌟',
     type: 'CHAT_INPUT',
     run: async (client: Client, interaction: BaseCommandInteraction) => {
