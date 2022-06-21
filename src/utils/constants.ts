@@ -15,6 +15,4 @@ export const SPREADSHEET_RANGES = ['Temperature!A:C', 'Humidity!A:C', 'Switch!A:
 export const SPREADSHEET_UPLOAD_SCHEDULE = '0 * * * *';
 
 // eslint-disable-next-line operator-linebreak
-export const PROFILE_URL =
-    // eslint-disable-next-line max-len
-    'https://helios-i.mashable.com/imagery/articles/02Ml12Tnr1wIjBQeoSNS3ss/hero-image.fill.size_1248x702.v1623370444.jpg';
+export const PROFILE_URL = 'https://www.dictionary.com/e/wp-content/uploads/2018/06/Pusheen.jpg';
