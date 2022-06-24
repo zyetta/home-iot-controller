@@ -1,7 +1,8 @@
 import { BaseCommandInteraction, ChatInputApplicationCommandData, Client } from 'discord.js';
 
 import { EweLinkHandler } from '../handlers/eweLinkHandler';
-import { eWeLinkLogin, EWELINK_DEVICES } from './eweLinkTypes';
+import { EWELINK_DEVICES } from '../utils/constants';
+import { eWeLinkLogin } from './eweLinkTypes';
 
 export type DiscordCommand = {
     run: (client: Client, interaction: BaseCommandInteraction) => void;
@@ -116,10 +117,9 @@ export const AllLightsOn: DiscordCommand = {
             deviceId: x,
             value: 1
         }));
-        await Promise.all([
-            switchData.map(x => EweLinkHandler.setState(x)),
-            interaction.followUp({ ephemeral: true, content })
-        ]);
+        const _return = switchData.map(x => EweLinkHandler.setState(x));
+        await Promise.all(_return);
+        await interaction.followUp({ ephemeral: true, content });
     }
 };
 
@@ -138,10 +138,9 @@ export const AllLightsOff: DiscordCommand = {
             deviceId,
             value: 0
         }));
-        await Promise.all([
-            switchData.map(x => EweLinkHandler.setState(x)),
-            interaction.followUp({ ephemeral: true, content })
-        ]);
+        const _return = switchData.map(x => EweLinkHandler.setState(x));
+        await Promise.all(_return);
+        await interaction.followUp({ ephemeral: true, content });
     }
 };
 

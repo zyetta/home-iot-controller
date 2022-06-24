@@ -1,15 +1,17 @@
+/* eslint-disable import/first */
 import * as dotenv from 'dotenv';
 import cron from 'node-cron';
-import { DiscordController } from './src/controllers/discordController';
-import { GsheetController } from './src/controllers/gsheetController';
-import MqttController from './src/controllers/mqttController';
-import { DiscordHandler } from './src/handlers/discordHandler';
-import { SPREADSHEET_UPLOAD_SCHEDULE } from './src/utils/constants';
 import { validateEnv } from './src/validation/envFileValidation';
 
 dotenv.config();
 const env = validateEnv();
 if (env) throw Error(env.toString());
+
+import { DiscordController } from './src/controllers/discordController';
+import { GsheetController } from './src/controllers/gsheetController';
+import MqttController from './src/controllers/mqttController';
+import { DiscordHandler } from './src/handlers/discordHandler';
+import { SPREADSHEET_UPLOAD_SCHEDULE } from './src/utils/constants';
 
 const mqttClient = new MqttController();
 mqttClient.listen();

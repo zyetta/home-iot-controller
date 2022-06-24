@@ -20,7 +20,7 @@ export class EweLinkHandler {
         try {
             const { value, error } = eweLinkLoginInputSchema.validate(data, this.validationOptions);
             if (error) throw error;
-            EweLinkController.setState(value);
+            await EweLinkController.setState(value);
         } catch (error) {
             LogsHandler.log({ topic: LogTypeEnum.VALIDATION_ERROR, message: error });
         }

@@ -16,3 +16,4 @@ export const SPREADSHEET_RANGES = ['Temperature!A:C', 'Humidity!A:C', 'Switch!A:
 export const SPREADSHEET_UPLOAD_SCHEDULE = '0 * * * *';
 
 export const PROFILE_URL = 'https://www.dictionary.com/e/wp-content/uploads/2018/06/Pusheen.jpg';
+export const EWELINK_DEVICES = [process.env.LIGHT_ID as string, process.env.LAMP_ID as string];
