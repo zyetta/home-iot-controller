@@ -1,7 +1,7 @@
 import { BaseCommandInteraction, ChatInputApplicationCommandData, Client } from 'discord.js';
 
 import { EweLinkHandler } from '../handlers/eweLinkHandler';
-import { eWeLinkLogin } from './eweLinkTypes';
+import { eWeLinkLogin, EWELINK_DEVICES } from './eweLinkTypes';
 
 export type DiscordCommand = {
     run: (client: Client, interaction: BaseCommandInteraction) => void;
@@ -21,11 +21,7 @@ export const Hello: DiscordCommand = {
     type: 'CHAT_INPUT',
     run: async (client: Client, interaction: BaseCommandInteraction) => {
         const content = 'Hello there!';
-
-        await interaction.followUp({
-            ephemeral: true,
-            content
-        });
+        await interaction.followUp({ ephemeral: true, content });
     }
 };
 
@@ -44,8 +40,7 @@ export const LampOff: DiscordCommand = {
             deviceId: process.env.LAMP_ID as string,
             value: 0
         };
-        EweLinkHandler.setState(switchData);
-        await interaction.followUp({ ephemeral: true, content });
+        await Promise.all([EweLinkHandler.setState(switchData), interaction.followUp({ ephemeral: true, content })]);
     }
 };
 
@@ -64,8 +59,7 @@ export const LampOn: DiscordCommand = {
             deviceId: process.env.LAMP_ID as string,
             value: 1
         };
-        EweLinkHandler.setState(switchData);
-        await interaction.followUp({ ephemeral: true, content });
+        await Promise.all([EweLinkHandler.setState(switchData), interaction.followUp({ ephemeral: true, content })]);
     }
 };
 
@@ -84,11 +78,7 @@ export const LightOff: DiscordCommand = {
             deviceId: process.env.LIGHT_ID as string,
             value: 0
         };
-        EweLinkHandler.setState(switchData);
-        await interaction.followUp({
-            ephemeral: true,
-            content
-        });
+        await Promise.all([EweLinkHandler.setState(switchData), interaction.followUp({ ephemeral: true, content })]);
     }
 };
 
@@ -107,11 +97,7 @@ export const LightOn: DiscordCommand = {
             deviceId: process.env.LIGHT_ID as string,
             value: 1
         };
-        EweLinkHandler.setState(switchData);
-        await interaction.followUp({
-            ephemeral: true,
-            content
-        });
+        await Promise.all([EweLinkHandler.setState(switchData), interaction.followUp({ ephemeral: true, content })]);
     }
 };
 
@@ -124,26 +110,16 @@ export const AllLightsOn: DiscordCommand = {
     type: 'CHAT_INPUT',
     run: async (client: Client, interaction: BaseCommandInteraction) => {
         const content = 'Turned on All Lights ✨';
-        const switchData: eWeLinkLogin[] = [
-            {
-                email: process.env.EWELINK_EMAIL as string,
-                password: process.env.EWELINK_PASSWORD as string,
-                deviceId: process.env.LIGHT_ID as string,
-                value: 1
-            },
-            {
-                email: process.env.EWELINK_EMAIL as string,
-                password: process.env.EWELINK_PASSWORD as string,
-                deviceId: process.env.LAMP_ID as string,
-                value: 1
-            }
-        ];
-        EweLinkHandler.setState(switchData[0]);
-        EweLinkHandler.setState(switchData[1]);
-        await interaction.followUp({
-            ephemeral: true,
-            content
-        });
+        const switchData: eWeLinkLogin[] = EWELINK_DEVICES.map(x => ({
+            email: process.env.EWELINK_EMAIL as string,
+            password: process.env.EWELINK_PASSWORD as string,
+            deviceId: x,
+            value: 1
+        }));
+        await Promise.all([
+            switchData.map(x => EweLinkHandler.setState(x)),
+            interaction.followUp({ ephemeral: true, content })
+        ]);
     }
 };
 
@@ -156,26 +132,16 @@ export const AllLightsOff: DiscordCommand = {
     type: 'CHAT_INPUT',
     run: async (client: Client, interaction: BaseCommandInteraction) => {
         const content = 'Turned off All Lights 🌟';
-        const switchData: eWeLinkLogin[] = [
-            {
-                email: process.env.EWELINK_EMAIL as string,
-                password: process.env.EWELINK_PASSWORD as string,
-                deviceId: process.env.LIGHT_ID as string,
-                value: 0
-            },
-            {
-                email: process.env.EWELINK_EMAIL as string,
-                password: process.env.EWELINK_PASSWORD as string,
-                deviceId: process.env.LAMP_ID as string,
-                value: 0
-            }
-        ];
-        EweLinkHandler.setState(switchData[0]);
-        EweLinkHandler.setState(switchData[1]);
-        await interaction.followUp({
-            ephemeral: true,
-            content
-        });
+        const switchData: eWeLinkLogin[] = EWELINK_DEVICES.map(deviceId => ({
+            email: process.env.EWELINK_EMAIL as string,
+            password: process.env.EWELINK_PASSWORD as string,
+            deviceId,
+            value: 0
+        }));
+        await Promise.all([
+            switchData.map(x => EweLinkHandler.setState(x)),
+            interaction.followUp({ ephemeral: true, content })
+        ]);
     }
 };
 

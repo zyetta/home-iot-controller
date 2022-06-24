@@ -1,8 +1,8 @@
 import { EweLinkController } from '../controllers/eweLinkController';
+import { LogTypeEnum } from '../types/enums/logsEnums';
 import { eWeLinkLogin } from '../types/eweLinkTypes';
 import { eweLinkLoginInputSchema } from '../validation/eweLinkValidation';
 import { LogsHandler } from './logsHandler';
-import { LogTypeEnum } from '../types/enums/logsEnums';
 // eslint-disable-next-line import/order
 import { ValidationOptions } from 'joi';
 
@@ -16,7 +16,7 @@ export class EweLinkHandler {
      *  Sets the state of the applicable eweLink device
      * @param {eWeLinkLogin} data
      */
-    public static setState(data: eWeLinkLogin) {
+    public static async setState(data: eWeLinkLogin) {
         try {
             const { value, error } = eweLinkLoginInputSchema.validate(data, this.validationOptions);
             if (error) throw error;

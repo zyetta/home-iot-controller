@@ -1,5 +1,6 @@
 export enum MqttTopicsEnum {
     TEMPERATURE = 'temperature',
     HUMIDITY = 'humidity',
-    SWITCH = 'switch'
+    SWITCH = 'switch',
+    POWER = 'power'
 }

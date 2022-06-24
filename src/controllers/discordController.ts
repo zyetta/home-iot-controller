@@ -1,7 +1,7 @@
 import { BaseCommandInteraction, Client, Interaction } from 'discord.js';
 import { DiscordCommands, DiscordWebhook } from '../types/discordTypes';
 
-import { ConsoleColorsEnum } from '../types/enums/generalEnums';
+import { ColorsEnum } from '../types/enums/generalEnums';
 import { PROFILE_URL } from '../utils/constants';
 // eslint-disable-next-line import/order
 import { Webhook } from 'discord-webhook-node';
@@ -29,7 +29,7 @@ export class DiscordController {
         client.on('ready', async () => {
             if (!client.user || !client.application) return;
             await client.application.commands.set(DiscordCommands);
-            console.log(ConsoleColorsEnum.FG_CYAN, `${this.client.user.username} is online 🌟`);
+            console.log(ColorsEnum.FG_CYAN, `${this.client.user.username} is online 🌟`, ColorsEnum.RESET);
         });
     }
 

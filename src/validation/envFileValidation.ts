@@ -1,6 +1,6 @@
 import Joi, { ValidationOptions } from 'joi';
 
-import { ConsoleColorsEnum } from '../types/enums/generalEnums';
+import { ColorsEnum } from '../types/enums/generalEnums';
 
 const validationOptions: ValidationOptions = { abortEarly: false, errors: { wrap: { label: "'" } } };
 const envFileInputSchema = Joi.object({
@@ -42,6 +42,6 @@ export const validateEnv = () => {
     };
     const { value: _value, error } = envFileInputSchema.validate(data, validationOptions);
     if (error) return error;
-    console.log(ConsoleColorsEnum.BG_GREEN, "All '.env' variables loaded successfully 🌞");
+    console.log(ColorsEnum.BG_GREEN, "All '.env' variables loaded successfully 🌞", ColorsEnum.RESET);
     return null;
 };
