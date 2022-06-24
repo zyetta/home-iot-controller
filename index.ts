@@ -1,5 +1,5 @@
 import * as dotenv from 'dotenv';
-import { cron } from 'node-cron';
+import cron from 'node-cron';
 import { DiscordController } from './src/controllers/discordController';
 import { GsheetController } from './src/controllers/gsheetController';
 import MqttController from './src/controllers/mqttController';
