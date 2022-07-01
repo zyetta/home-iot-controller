@@ -14,6 +14,7 @@ import { LogsHandler } from '../handlers/logsHandler';
 import { LogTypeEnum } from '../types/enums/logsEnums';
 // eslint-disable-next-line import/order
 import readline from 'readline';
+import { getStatusModel } from '../models/statusModel';
 
 // eslint-disable-next-line import/order
 
@@ -102,33 +103,41 @@ export class GsheetController {
             const filter = { exported: { $in: [false, undefined] } };
             const update = { exported: true };
             const select = ['createdAt', 'deviceId', 'value'];
-            const [TemperatureModel, HumidityModel, SwitchModel] = await Promise.all([
+            const [TemperatureModel, HumidityModel, SwitchModel, StatusModel] = await Promise.all([
                 getTemperatureModel(),
                 getHumidityModel(),
-                getSwitchModel()
+                getSwitchModel(),
+                getStatusModel()
             ]);
             const data = await Promise.all([
                 TemperatureModel.find(filter).select(select),
                 HumidityModel.find(filter).select(select),
-                SwitchModel.find(filter).select(select)
+                SwitchModel.find(filter).select(select),
+                StatusModel.find(filter).select(select)
             ]);
             if (data.length !== SPREADSHEET_RANGES.length) throw Error('Inconsistent Database Entries');
 
             await Promise.all([
                 TemperatureModel.updateMany(filter, update),
                 HumidityModel.updateMany(filter, update),
-                SwitchModel.updateMany(filter, update)
+                SwitchModel.updateMany(filter, update),
+                StatusModel.updateMany(filter, update)
             ]);
 
             const sheets = google.sheets('v4');
             let uploadConfig: any[] = [];
-            const spreadsheetId = process.env.SPREADSHEET_ID as string;
+            const spreadsheetId = [
+                process.env.SPREADSHEET_ID_IOT as string,
+                process.env.SPREADSHEET_ID_IOT as string,
+                process.env.SPREADSHEET_ID_IOT as string,
+                process.env.SPREADSHEET_ID_UPTIME as string
+            ];
             const auth = this.authClient as any;
             const valueInputOption = 'USER_ENTERED';
 
             for (let i = 0; i < SPREADSHEET_RANGES.length; i += 1) {
                 uploadConfig.push({
-                    spreadsheetId,
+                    spreadsheetId: spreadsheetId[i],
                     requestBody: { values: data[i].map(x => [x.createdAt, x.deviceId, x.value]) },
                     range: SPREADSHEET_RANGES[i],
                     auth,

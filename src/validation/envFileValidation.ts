@@ -22,7 +22,9 @@ const envFileInputSchema = Joi.object({
     discordClientId: Joi.string().required(),
     discordWebhook: Joi.string().required(),
     // Google Credentials
-    googleToken: Joi.string().required()
+    googleToken: Joi.string().required(),
+    spreadsheetIdIot: Joi.string().required(),
+    spreadsheetIdUptime: Joi.string().required()
 });
 
 export const validateEnv = () => {
@@ -36,6 +38,8 @@ export const validateEnv = () => {
         eweLinkPassword: process.env.EWELINK_PASSWORD,
         discordClientId: process.env.DISCORD_CLIENT_ID,
         googleToken: process.env.GOOGLE_TOKEN,
+        spreadsheetIdIot: process.env.SPREADSHEET_ID_IOT,
+        spreadsheetIdUptime: process.env.SPREADSHEET_ID_UPTIME,
         lampId: process.env.LAMP_ID,
         lightId: process.env.LIGHT_ID,
         discordWebhook: process.env.DISCORD_WEBHOOK
